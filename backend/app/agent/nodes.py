@@ -11,11 +11,14 @@ from app.agent.schemas import (
     BuyingPowerRubric,
     CandidateCluster,
     ClusterMetrics,
+    EditorialReview,
+    EditorialScores,
     ReviewDecision,
 )
 
 MODEL = "gpt-4o-mini"
 ENV_PATH = Path(__file__).resolve().parents[3] / ".env"
+LOW_SCORE_THRESHOLD = 2
 
 REVIEW_RESPONSE_SCHEMA = {
     "type": "object",
@@ -80,6 +83,43 @@ SYNTHESIS_RESPONSE_SCHEMA = {
         },
     },
     "required": ["name", "trending_description", "buying_power", "brand_categories"],
+    "additionalProperties": False,
+}
+
+SCORE_SCHEMA = {
+    "type": "integer",
+    "minimum": 1,
+    "maximum": 5,
+}
+
+EDITORIAL_RESPONSE_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "scores": {
+            "type": "object",
+            "properties": {
+                "cluster_coherence": SCORE_SCHEMA,
+                "commercial_relevance": SCORE_SCHEMA,
+                "evidence_grounding": SCORE_SCHEMA,
+                "audience_specificity": SCORE_SCHEMA,
+                "buying_power_justification": SCORE_SCHEMA,
+            },
+            "required": [
+                "cluster_coherence",
+                "commercial_relevance",
+                "evidence_grounding",
+                "audience_specificity",
+                "buying_power_justification",
+            ],
+            "additionalProperties": False,
+        },
+        "decision": {
+            "type": "string",
+            "enum": ["approve", "revise"],
+        },
+        "feedback": {"type": "string"},
+    },
+    "required": ["scores", "decision", "feedback"],
     "additionalProperties": False,
 }
 
@@ -241,6 +281,121 @@ def synthesize_audience(
     )
 
 
+def _has_low_score(scores: EditorialScores) -> bool:
+    score_values = scores.model_dump().values()
+    return any(score <= LOW_SCORE_THRESHOLD for score in score_values)
+
+
+def _editorial_prompt(
+    entry: AudienceEntry,
+    cluster: CandidateCluster,
+    articles: list[Article],
+    *,
+    allow_revision: bool,
+) -> str:
+    article_lines = []
+    for article in articles:
+        categories = ", ".join(article.categories)
+        article_lines.append(
+            f"- {article.title}: {article.summary} (categories: {categories})"
+        )
+
+    revision_rule = (
+        "If any score is 1 or 2, decision must be revise with concrete feedback "
+        "on what to fix. Otherwise decision must be approve and feedback must be "
+        "an empty string."
+    )
+    if not allow_revision:
+        revision_rule = (
+            "This is the final pass after one allowed revision. "
+            "Decision must be approve. Use feedback only for minor notes, or leave "
+            "it empty."
+        )
+
+    return (
+        "You are the editorial critic for audience intelligence briefs.\n"
+        "Score the finished audience entry from 1 (poor) to 5 (excellent) on:\n"
+        "- cluster_coherence: does the entry describe one coherent audience?\n"
+        "- commercial_relevance: is it useful for advertisers and media planners?\n"
+        "- evidence_grounding: is it grounded in the supplied articles?\n"
+        "- audience_specificity: is the segment specific rather than generic?\n"
+        "- buying_power_justification: are rubric ratings well supported?\n\n"
+        f"{revision_rule}\n\n"
+        f"Cluster id: {cluster.cluster_id}\n\n"
+        "Source articles:\n"
+        + "\n".join(article_lines)
+        + "\n\nAudience entry:\n"
+        + entry.model_dump_json(indent=2)
+    )
+
+
+def _normalize_editorial_decision(
+    scores: EditorialScores,
+    decision: str,
+    feedback: str,
+    *,
+    allow_revision: bool,
+) -> tuple[str, str]:
+    if not allow_revision:
+        return "approve", feedback
+
+    if _has_low_score(scores):
+        return "revise", feedback or "Revise weak dimensions before publication."
+
+    return "approve", ""
+
+
+def critique_entry(
+    entry: AudienceEntry,
+    cluster: CandidateCluster,
+    articles: list[Article],
+    *,
+    allow_revision: bool = True,
+) -> EditorialReview:
+    response = _get_client().chat.completions.create(
+        model=MODEL,
+        response_format={
+            "type": "json_schema",
+            "json_schema": {
+                "name": "editorial_review",
+                "schema": EDITORIAL_RESPONSE_SCHEMA,
+                "strict": True,
+            },
+        },
+        messages=[
+            {
+                "role": "system",
+                "content": (
+                    "You are a strict editorial critic for commercial audience briefs. "
+                    "Respond only with JSON matching the requested schema."
+                ),
+            },
+            {
+                "role": "user",
+                "content": _editorial_prompt(
+                    entry, cluster, articles, allow_revision=allow_revision
+                ),
+            },
+        ],
+    )
+
+    payload = json.loads(response.choices[0].message.content)
+    scores = EditorialScores.model_validate(payload["scores"])
+    decision, feedback = _normalize_editorial_decision(
+        scores,
+        payload["decision"],
+        payload["feedback"],
+        allow_revision=allow_revision,
+    )
+
+    return EditorialReview(
+        cluster_id=entry.cluster_id,
+        scores=scores,
+        decision=decision,
+        feedback=feedback,
+    )
+
+
 if __name__ == "__main__":
     from app.clustering.cluster_metrics import (
         approved_clusters_from_reviews,
@@ -325,7 +480,11 @@ if __name__ == "__main__":
     entry = synthesize_audience(
         cluster, cluster_articles, metrics_by_id[cluster.cluster_id]
     )
+    editorial_review = critique_entry(entry, cluster, cluster_articles)
 
     print("=== cl-001 audience entry ===")
     print(entry.model_dump_json(indent=2))
+    print()
+    print("=== cl-001 editorial review ===")
+    print(editorial_review.model_dump_json(indent=2))
     print()

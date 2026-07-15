@@ -1,6 +1,6 @@
 from typing import Literal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 RatingLevel = Literal["low", "medium", "high"]
 
@@ -49,3 +49,18 @@ class AudienceEntry(BaseModel):
     brand_categories: list[str]
     traffic_share: float
     size_index: float
+
+
+class EditorialScores(BaseModel):
+    cluster_coherence: int = Field(ge=1, le=5)
+    commercial_relevance: int = Field(ge=1, le=5)
+    evidence_grounding: int = Field(ge=1, le=5)
+    audience_specificity: int = Field(ge=1, le=5)
+    buying_power_justification: int = Field(ge=1, le=5)
+
+
+class EditorialReview(BaseModel):
+    cluster_id: str
+    scores: EditorialScores
+    decision: Literal["approve", "revise"]
+    feedback: str
