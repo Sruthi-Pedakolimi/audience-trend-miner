@@ -1,0 +1,86 @@
+[
+  {
+    "id": "art-001",
+    "title": "Solar panel",
+    "summary": "A solar panel is a device that converts sunlight into electricity using photovoltaic cells. Residential rooftop installations have grown rapidly as homeowners seek to reduce grid dependence and lower energy bills. Modern panels typically last 25–30 years and pair well with battery storage systems.",
+    "categories": ["Renewable energy", "Photovoltaics", "Sustainable technology", "Home improvement"],
+    "pageviews": 184320
+  },
+  {
+    "id": "art-002",
+    "title": "Heat pump",
+    "summary": "A heat pump is a heating and cooling system that transfers thermal energy from outside air, ground, or water into a building. Air-source heat pumps are increasingly used as a lower-carbon alternative to gas furnaces, especially when paired with rooftop solar generation.",
+    "categories": ["HVAC", "Renewable energy", "Energy efficiency", "Building technology"],
+    "pageviews": 142890
+  },
+  {
+    "id": "art-003",
+    "title": "Electric bicycle",
+    "summary": "An electric bicycle, or e-bike, is a bicycle with an integrated electric motor that assists pedaling. E-bikes are popular for commuting and short trips, offering a low-emission alternative to cars for urban mobility and last-mile transport.",
+    "categories": ["Electric vehicles", "Cycling", "Sustainable transport", "Urban mobility"],
+    "pageviews": 97650
+  },
+  {
+    "id": "art-004",
+    "title": "Building insulation",
+    "summary": "Building insulation reduces heat transfer through walls, roofs, and floors, lowering the energy required to heat and cool a home. Upgrading attic and wall insulation is one of the most cost-effective retrofits for improving household energy efficiency.",
+    "categories": ["Energy efficiency", "Building materials", "Home improvement", "Sustainable architecture"],
+    "pageviews": 67840
+  },
+  {
+    "id": "art-005",
+    "title": "Taylor Swift",
+    "summary": "Taylor Swift is an American singer-songwriter known for narrative songwriting and genre-spanning albums. Her Eras Tour became one of the highest-grossing concert tours in history, drawing massive media coverage and fan engagement worldwide.",
+    "categories": ["American musicians", "Pop music", "21st-century singers", "Celebrity"],
+    "pageviews": 892100
+  },
+  {
+    "id": "art-006",
+    "title": "Academy Awards",
+    "summary": "The Academy Awards, commonly known as the Oscars, are annual awards honoring artistic and technical achievement in the film industry. The ceremony attracts global television audiences and generates extensive red-carpet fashion and celebrity coverage.",
+    "categories": ["Film awards", "American cinema", "Annual events", "Entertainment"],
+    "pageviews": 534200
+  },
+  {
+    "id": "art-007",
+    "title": "Marvel Cinematic Universe",
+    "summary": "The Marvel Cinematic Universe is a shared universe of superhero films and television series produced by Marvel Studios. Blockbuster releases regularly dominate box-office charts and drive merchandising, streaming, and fan-community discourse.",
+    "categories": ["Superhero films", "Film franchises", "Disney", "Popular culture"],
+    "pageviews": 721450
+  },
+  {
+    "id": "art-008",
+    "title": "2024 Atlantic hurricane season",
+    "summary": "The 2024 Atlantic hurricane season produced an above-average number of named storms, with several making landfall along the Gulf and East Coasts. Coastal evacuations, infrastructure damage, and recovery funding dominated regional news coverage for months.",
+    "categories": ["Atlantic hurricanes", "Natural disasters", "Climate events", "2024 meteorology"],
+    "pageviews": 312780
+  },
+  {
+    "id": "art-009",
+    "title": "2024 United States presidential election",
+    "summary": "The 2024 United States presidential election determined the president and vice president for the 2025–2029 term. Campaign rallies, debate performances, polling swings, and policy disputes generated sustained national media attention through Election Day.",
+    "categories": ["United States elections", "American politics", "Presidential elections", "2024 in politics"],
+    "pageviews": 1245600
+  },
+  {
+    "id": "art-010",
+    "title": "Sourdough bread",
+    "summary": "Sourdough bread is leavened with a starter culture of wild yeast and lactobacilli rather than commercial yeast. Home baking surged in popularity during the 2020s, with enthusiasts sharing starter maintenance tips and crust-scoring techniques online.",
+    "categories": ["Bread", "Baking", "Fermented foods", "Culinary arts"],
+    "pageviews": 45890
+  },
+  {
+    "id": "art-011",
+    "title": "Mariana Trench",
+    "summary": "The Mariana Trench is the deepest oceanic trench on Earth, located in the western Pacific Ocean. Crewed and robotic submersible expeditions have explored its hadal zone, discovering extremophile organisms adapted to crushing pressure and near-freezing temperatures.",
+    "categories": ["Ocean trenches", "Pacific Ocean", "Marine geology", "Deep-sea exploration"],
+    "pageviews": 112340
+  },
+  {
+    "id": "art-012",
+    "title": "Philately",
+    "summary": "Philately is the study and collection of postage stamps and related postal history. Collectors value rare misprints, commemorative issues, and postmarks, and major auction houses regularly sell individual stamps for six-figure sums.",
+    "categories": ["Hobbies", "Postal history", "Collecting", "Stamps"],
+    "pageviews": 23410
+  }
+]
