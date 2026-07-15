@@ -1,4 +1,5 @@
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import TypedDict
 
@@ -19,6 +20,7 @@ from app.clustering.candidate_clusterer import cluster_articles
 from app.clustering.embeddings import embed_articles
 
 MAX_CLUSTER_REVIEW_ATTEMPTS = 2
+LIVE_CACHE_PATH = Path(__file__).resolve().parents[2] / "sample_outputs" / "live_run.json"
 
 
 class GraphState(TypedDict):
@@ -270,6 +272,46 @@ def run_graph(articles: list[Article]) -> GraphState:
     return app.invoke(empty_graph_state(articles))
 
 
+def save_live_cache(articles: list[Article], result: GraphState) -> Path:
+    payload = {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "source": "live",
+        "articles": [article.model_dump() for article in articles],
+        "final_portfolio": [
+            entry.model_dump() for entry in result["final_portfolio"]
+        ],
+        "rejected_clusters": {
+            cluster_id: cluster.model_dump()
+            for cluster_id, cluster in result["rejected_clusters"].items()
+        },
+    }
+    LIVE_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    LIVE_CACHE_PATH.write_text(json.dumps(payload, indent=2))
+    return LIVE_CACHE_PATH
+
+
+def load_live_cache() -> tuple[list[Article], GraphState]:
+    if not LIVE_CACHE_PATH.exists():
+        raise FileNotFoundError(
+            f"No cached live run found at {LIVE_CACHE_PATH}. "
+            "Run with --live --write-cache first."
+        )
+
+    payload = json.loads(LIVE_CACHE_PATH.read_text())
+    articles = [Article.model_validate(item) for item in payload["articles"]]
+    result: GraphState = {
+        **empty_graph_state(articles),
+        "final_portfolio": [
+            PortfolioEntry.model_validate(item) for item in payload["final_portfolio"]
+        ],
+        "rejected_clusters": {
+            cluster_id: CandidateCluster.model_validate(cluster)
+            for cluster_id, cluster in payload["rejected_clusters"].items()
+        },
+    }
+    return articles, result
+
+
 if __name__ == "__main__":
     import argparse
 
@@ -287,11 +329,27 @@ if __name__ == "__main__":
         action="store_true",
         help="Run on live Wikipedia weekly top articles",
     )
+    source.add_argument(
+        "--cached",
+        action="store_true",
+        help="Replay a saved live run from sample_outputs/live_run.json",
+    )
+    parser.add_argument(
+        "--write-cache",
+        action="store_true",
+        help="With --live, save articles and final output to sample_outputs/",
+    )
     args = parser.parse_args()
 
-    if args.fixture:
+    if args.cached:
+        articles, result = load_live_cache()
+        print(f"loaded cached live run ({len(articles)} articles)\n")
+        print_graph_results(result, articles)
+    elif args.fixture:
         articles = load_fixture_articles()
         print(f"loaded {len(articles)} fixture articles\n")
+        result = run_graph(articles)
+        print_graph_results(result, articles)
     else:
         print("fetching weekly top titles and enriching top 15...")
         articles = build_live_articles()
@@ -303,5 +361,8 @@ if __name__ == "__main__":
             )
         print()
 
-    result = run_graph(articles)
-    print_graph_results(result, articles)
+        result = run_graph(articles)
+        if args.write_cache:
+            cache_path = save_live_cache(articles, result)
+            print(f"saved live run cache to {cache_path}\n")
+        print_graph_results(result, articles)
