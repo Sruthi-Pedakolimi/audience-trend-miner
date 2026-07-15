@@ -1,4 +1,5 @@
 import json
+import os
 from functools import lru_cache
 from pathlib import Path
 
@@ -127,16 +128,17 @@ EDITORIAL_RESPONSE_SCHEMA = {
 
 @lru_cache(maxsize=1)
 def _get_client() -> OpenAI:
-    config = dotenv_values(ENV_PATH)
-    api_key = config.get("OPENAI_API_KEY")
+    config = dotenv_values(ENV_PATH) if ENV_PATH.exists() else {}
+    api_key = os.environ.get("OPENAI_API_KEY") or config.get("OPENAI_API_KEY")
     if not api_key:
-        raise ValueError("OPENAI_API_KEY is not set in .env")
+        raise ValueError("OPENAI_API_KEY is not set")
 
-    client_kwargs: dict[str, str] = {
-        "api_key": api_key,
-        "base_url": config.get("OPENAI_BASE_URL") or "https://api.openai.com/v1",
-    }
-    return OpenAI(**client_kwargs)
+    base_url = (
+        os.environ.get("OPENAI_BASE_URL")
+        or config.get("OPENAI_BASE_URL")
+        or "https://api.openai.com/v1"
+    )
+    return OpenAI(api_key=api_key, base_url=base_url)
 
 
 def _cluster_prompt(cluster: CandidateCluster, articles: list[Article]) -> str:

@@ -99,3 +99,18 @@ def load_articles_cache(week_ending: date, article_limit: int) -> list[Article]:
 
     payload = json.loads(path.read_text())
     return [Article.model_validate(item) for item in payload["articles"]]
+
+
+def list_cached_article_limits(week_ending: date) -> list[int]:
+    if not ARTICLES_CACHE_DIR.exists():
+        return []
+
+    prefix = f"{_normalize_week_ending(week_ending)}__"
+    limits: list[int] = []
+
+    for path in ARTICLES_CACHE_DIR.glob(f"{prefix}*.json"):
+        suffix = path.stem.removeprefix(prefix)
+        if suffix.isdigit():
+            limits.append(int(suffix))
+
+    return sorted(limits)

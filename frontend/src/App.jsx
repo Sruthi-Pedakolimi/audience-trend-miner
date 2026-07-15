@@ -1,57 +1,34 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import EvidenceDrawer from './components/EvidenceDrawer'
+import GeneratePanel from './components/GeneratePanel'
 import PortfolioCard from './components/PortfolioCard'
 
 function App() {
   const [activeTab, setActiveTab] = useState('portfolio')
   const [portfolio, setPortfolio] = useState(null)
   const [rejected, setRejected] = useState(null)
-  const [portfolioError, setPortfolioError] = useState(null)
-  const [rejectedError, setRejectedError] = useState(null)
-  const [portfolioLoading, setPortfolioLoading] = useState(true)
-  const [rejectedLoading, setRejectedLoading] = useState(true)
-
-  useEffect(() => {
-    fetch('/portfolio')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}`)
-        }
-        return response.json()
-      })
-      .then((json) => {
-        setPortfolio(json)
-        setPortfolioLoading(false)
-      })
-      .catch((err) => {
-        setPortfolioError(err.message)
-        setPortfolioLoading(false)
-      })
-
-    fetch('/rejected')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}`)
-        }
-        return response.json()
-      })
-      .then((json) => {
-        setRejected(json.rejected)
-        setRejectedLoading(false)
-      })
-      .catch((err) => {
-        setRejectedError(err.message)
-        setRejectedLoading(false)
-      })
-  }, [])
 
   const approvedCount = portfolio?.portfolio?.length ?? 0
   const excludedCount = rejected?.length ?? 0
+  const hasResults = portfolio !== null
 
   const tabClass = (tab) =>
     activeTab === tab
       ? 'bg-white text-gray-900 shadow-sm'
       : 'text-gray-600 hover:text-gray-900'
+
+  function handleGenerateSuccess(data) {
+    setPortfolio({
+      generated_at: data.generated_at,
+      cache_status: data.cache_status,
+      week_ending: data.week_ending,
+      article_limit: data.article_limit,
+      data_mode: data.data_mode,
+      portfolio: data.portfolio,
+    })
+    setRejected(data.rejected)
+    setActiveTab('portfolio')
+  }
 
   return (
     <main className="min-h-screen bg-gray-50 p-6">
@@ -61,40 +38,52 @@ function App() {
           {portfolio?.generated_at && (
             <p className="text-sm text-gray-500 mt-1">
               Generated {new Date(portfolio.generated_at).toLocaleString()}
+              {portfolio.cache_status === 'hit' && (
+                <span className="ml-2 text-gray-400">(cached result)</span>
+              )}
             </p>
           )}
         </header>
 
-        <nav
-          className="flex gap-1 p-1 mb-6 bg-gray-200 rounded-lg"
-          aria-label="Portfolio views"
-        >
-          <button
-            type="button"
-            onClick={() => setActiveTab('portfolio')}
-            className={`flex-1 px-4 py-2 text-sm font-medium rounded-md transition-colors ${tabClass('portfolio')}`}
-          >
-            Approved audiences ({approvedCount})
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab('excluded')}
-            className={`flex-1 px-4 py-2 text-sm font-medium rounded-md transition-colors ${tabClass('excluded')}`}
-          >
-            Excluded ({excludedCount})
-          </button>
-        </nav>
+        <GeneratePanel onSuccess={handleGenerateSuccess} />
 
-        {activeTab === 'portfolio' && (
+        {hasResults && (
+          <nav
+            className="flex gap-1 p-1 mb-6 bg-gray-200 rounded-lg"
+            aria-label="Portfolio views"
+          >
+            <button
+              type="button"
+              onClick={() => setActiveTab('portfolio')}
+              className={`flex-1 px-4 py-2 text-sm font-medium rounded-md transition-colors ${tabClass('portfolio')}`}
+            >
+              Approved audiences ({approvedCount})
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab('excluded')}
+              className={`flex-1 px-4 py-2 text-sm font-medium rounded-md transition-colors ${tabClass('excluded')}`}
+            >
+              Excluded ({excludedCount})
+            </button>
+          </nav>
+        )}
+
+        {!hasResults && (
+          <p className="text-sm text-gray-600">
+            Configure a run above and click Generate to build an audience portfolio from
+            trending Wikipedia articles.
+          </p>
+        )}
+
+        {activeTab === 'portfolio' && hasResults && (
           <>
-            {portfolioLoading && <p className="text-gray-600">Loading portfolio...</p>}
-            {portfolioError && <p className="text-red-600">Error: {portfolioError}</p>}
             <div className="space-y-6">
-              {portfolio?.portfolio?.map((item) => (
+              {portfolio.portfolio.map((item) => (
                 <PortfolioCard key={item.cluster_id} item={item} />
               ))}
             </div>
-            {!portfolioLoading && excludedCount > 0 && (
+            {excludedCount > 0 && (
               <p className="mt-6 text-sm text-gray-600">
                 {excludedCount} cluster{excludedCount === 1 ? '' : 's'} excluded during
                 review.{' '}
@@ -110,12 +99,8 @@ function App() {
           </>
         )}
 
-        {activeTab === 'excluded' && (
-          <EvidenceDrawer
-            rejected={rejected}
-            loading={rejectedLoading}
-            error={rejectedError}
-          />
+        {activeTab === 'excluded' && hasResults && (
+          <EvidenceDrawer rejected={rejected} loading={false} error={null} />
         )}
       </div>
     </main>

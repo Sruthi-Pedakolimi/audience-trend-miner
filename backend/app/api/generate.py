@@ -2,11 +2,12 @@ from datetime import date
 from typing import Literal
 
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 from app.agent.graph import run_graph
 from app.agent.schemas import PortfolioEntry, ReviewDecision
 from app.services.generate_cache import (
+    list_cached_article_limits,
     load_articles_cache,
     load_generate_cache,
     save_articles_cache,
@@ -16,10 +17,12 @@ from app.services.live_articles import build_live_articles
 
 router = APIRouter()
 
+ARTICLE_LIMIT_OPTIONS = (10, 15, 20, 25)
+
 
 class GenerateRequest(BaseModel):
     week_ending: date
-    article_limit: int = Field(default=15, ge=1, le=30)
+    article_limit: Literal[10, 15, 20, 25] = 15
     data_mode: Literal["live", "cached"] = "live"
     force_refresh: bool = False
 
@@ -120,3 +123,12 @@ def generate_portfolio(request: GenerateRequest) -> dict:
         raise HTTPException(status_code=500, detail="Failed to save generate cache")
 
     return _format_response(cached, "miss")
+
+
+@router.get("/cached-article-limits")
+def get_cached_article_limits(week_ending: date) -> dict:
+    return {
+        "week_ending": week_ending.isoformat(),
+        "article_limits": list_cached_article_limits(week_ending),
+        "all_options": list(ARTICLE_LIMIT_OPTIONS),
+    }

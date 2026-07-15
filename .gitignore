@@ -23,4 +23,5 @@ build/
 
 # Cached/generated data (keep folder, ignore contents)
 sample_outputs/*.json
+sample_outputs/cache/
 !sample_outputs/.gitkeep
