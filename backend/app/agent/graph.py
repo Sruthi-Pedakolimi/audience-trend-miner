@@ -18,6 +18,7 @@ from app.agent.schemas import (
 from app.clustering.cluster_metrics import compute_cluster_metrics
 from app.clustering.candidate_clusterer import cluster_articles
 from app.clustering.embeddings import embed_articles
+from app.clustering.review_selection import bound_clusters_for_review
 
 MAX_CLUSTER_REVIEW_ATTEMPTS = 2
 LIVE_CACHE_PATH = Path(__file__).resolve().parents[2] / "sample_outputs" / "live_run.json"
@@ -45,9 +46,31 @@ def cluster_node(state: GraphState) -> GraphState:
         cluster.cluster_id: cluster for cluster in clusters
     }
 
+    pending_cluster_ids, dropped = bound_clusters_for_review(
+        list(candidate_clusters.values()),
+        articles,
+    )
+
+    article_by_id = {article.id: article for article in articles}
+    print(
+        f"clustering produced {len(clusters)} candidate clusters, "
+        f"sending {len(pending_cluster_ids)} to review"
+    )
+    if dropped:
+        print(f"dropped {len(dropped)} clusters from review queue:")
+        for cluster in dropped:
+            traffic = sum(
+                article_by_id[article_id].pageviews
+                for article_id in cluster.article_ids
+            )
+            print(
+                f"  - {cluster.cluster_id}: {len(cluster.article_ids)} articles, "
+                f"{traffic:,} pageviews"
+            )
+
     return {
         "candidate_clusters": candidate_clusters,
-        "pending_cluster_ids": list(candidate_clusters.keys()),
+        "pending_cluster_ids": pending_cluster_ids,
     }
 
 
