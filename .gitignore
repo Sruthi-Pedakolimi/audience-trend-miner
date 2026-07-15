@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+
+# Env / secrets
+.env
+.env.local
+
+# Node / frontend
+node_modules/
+dist/
+build/
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+
+# Cached/generated data (keep folder, ignore contents)
+sample_outputs/*.json
+!sample_outputs/.gitkeep
