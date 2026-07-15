@@ -18,5 +18,6 @@ class CandidateCluster(BaseModel):
 
 class ReviewDecision(BaseModel):
     cluster_id: str
-    decision: Literal["approve", "reject"]
+    decision: Literal["approve", "reject", "remove_outliers"]
     reason: str
+    outlier_article_ids: list[str] = []
