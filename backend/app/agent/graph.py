@@ -4,8 +4,17 @@ from typing import TypedDict
 
 from langgraph.graph import END, START, StateGraph
 
-from app.agent.nodes import review_cluster
-from app.agent.schemas import Article, CandidateCluster, ReviewDecision
+from app.agent.nodes import critique_entry, review_cluster, synthesize_audience
+from app.agent.schemas import (
+    Article,
+    AudienceEntry,
+    CandidateCluster,
+    ClusterMetrics,
+    EditorialReview,
+    PortfolioEntry,
+    ReviewDecision,
+)
+from app.clustering.cluster_metrics import compute_cluster_metrics
 from app.clustering.candidate_clusterer import cluster_articles
 from app.clustering.embeddings import embed_articles
 
@@ -20,6 +29,10 @@ class GraphState(TypedDict):
     approved_clusters: dict[str, CandidateCluster]
     rejected_clusters: dict[str, CandidateCluster]
     cluster_review_attempts: dict[str, int]
+    cluster_metrics: dict[str, ClusterMetrics]
+    audience_entries: dict[str, AudienceEntry]
+    editorial_reviews: dict[str, EditorialReview]
+    final_portfolio: list[PortfolioEntry]
 
 
 def cluster_node(state: GraphState) -> GraphState:
@@ -96,10 +109,92 @@ def apply_review_decisions_node(state: GraphState) -> GraphState:
     }
 
 
+def metrics_node(state: GraphState) -> GraphState:
+    approved_clusters = [
+        state["approved_clusters"][cluster_id]
+        for cluster_id in sorted(state["approved_clusters"])
+    ]
+    metrics_list = compute_cluster_metrics(approved_clusters, state["articles"])
+
+    return {
+        "cluster_metrics": {
+            metrics.cluster_id: metrics for metrics in metrics_list
+        }
+    }
+
+
+def synthesize_node(state: GraphState) -> GraphState:
+    article_by_id = {article.id: article for article in state["articles"]}
+    audience_entries: dict[str, AudienceEntry] = {}
+
+    for cluster_id in sorted(state["approved_clusters"]):
+        cluster = state["approved_clusters"][cluster_id]
+        cluster_articles = [
+            article_by_id[article_id] for article_id in cluster.article_ids
+        ]
+        metrics = state["cluster_metrics"][cluster_id]
+        audience_entries[cluster_id] = synthesize_audience(
+            cluster, cluster_articles, metrics
+        )
+
+    return {"audience_entries": audience_entries}
+
+
+def critique_and_revise_once_node(state: GraphState) -> GraphState:
+    article_by_id = {article.id: article for article in state["articles"]}
+    audience_entries = dict(state["audience_entries"])
+    editorial_reviews: dict[str, EditorialReview] = {}
+
+    for cluster_id in sorted(state["approved_clusters"]):
+        cluster = state["approved_clusters"][cluster_id]
+        cluster_articles = [
+            article_by_id[article_id] for article_id in cluster.article_ids
+        ]
+        metrics = state["cluster_metrics"][cluster_id]
+        entry = audience_entries[cluster_id]
+
+        review = critique_entry(
+            entry, cluster, cluster_articles, allow_revision=True
+        )
+        if review.decision == "revise":
+            entry = synthesize_audience(
+                cluster,
+                cluster_articles,
+                metrics,
+                revision_feedback=review.feedback,
+            )
+            audience_entries[cluster_id] = entry
+            review = critique_entry(
+                entry, cluster, cluster_articles, allow_revision=False
+            )
+
+        editorial_reviews[cluster_id] = review
+
+    return {
+        "audience_entries": audience_entries,
+        "editorial_reviews": editorial_reviews,
+    }
+
+
+def finalize_node(state: GraphState) -> GraphState:
+    final_portfolio = [
+        PortfolioEntry(
+            cluster_id=cluster_id,
+            cluster=state["approved_clusters"][cluster_id],
+            metrics=state["cluster_metrics"][cluster_id],
+            entry=state["audience_entries"][cluster_id],
+            editorial_review=state["editorial_reviews"][cluster_id],
+        )
+        for cluster_id in sorted(state["approved_clusters"])
+    ]
+
+    return {"final_portfolio": final_portfolio}
+
+
 def route_after_apply(state: GraphState) -> str:
     if state["pending_cluster_ids"]:
         return "review_clusters"
-    return END
+    return "metrics"
 
 
 def build_graph():
@@ -107,10 +202,18 @@ def build_graph():
     graph.add_node("cluster", cluster_node)
     graph.add_node("review_clusters", review_clusters_node)
     graph.add_node("apply_review_decisions", apply_review_decisions_node)
+    graph.add_node("metrics", metrics_node)
+    graph.add_node("synthesize", synthesize_node)
+    graph.add_node("critique_and_revise_once", critique_and_revise_once_node)
+    graph.add_node("finalize", finalize_node)
     graph.add_edge(START, "cluster")
     graph.add_edge("cluster", "review_clusters")
     graph.add_edge("review_clusters", "apply_review_decisions")
     graph.add_conditional_edges("apply_review_decisions", route_after_apply)
+    graph.add_edge("metrics", "synthesize")
+    graph.add_edge("synthesize", "critique_and_revise_once")
+    graph.add_edge("critique_and_revise_once", "finalize")
+    graph.add_edge("finalize", END)
     return graph.compile()
 
 
@@ -130,27 +233,31 @@ if __name__ == "__main__":
             "approved_clusters": {},
             "rejected_clusters": {},
             "cluster_review_attempts": {},
+            "cluster_metrics": {},
+            "audience_entries": {},
+            "editorial_reviews": {},
+            "final_portfolio": [],
         }
     )
 
-    def print_clusters(title: str, clusters: dict[str, CandidateCluster]) -> None:
-        print(title)
-        if not clusters:
-            print("  (none)")
-            print()
-            return
-
-        for cluster_id in sorted(clusters):
-            cluster = clusters[cluster_id]
-            titles = [article_by_id[article_id].title for article_id in cluster.article_ids]
-            print(f"  {cluster_id}: {', '.join(titles)}")
+    print(f"final_portfolio ({len(result['final_portfolio'])} entries)\n")
+    for portfolio_entry in result["final_portfolio"]:
+        titles = [
+            article_by_id[article_id].title
+            for article_id in portfolio_entry.cluster.article_ids
+        ]
+        print(f"=== {portfolio_entry.cluster_id}: {portfolio_entry.entry.name} ===")
+        print(f"articles: {', '.join(titles)}")
+        print(
+            f"metrics: traffic_share={portfolio_entry.metrics.traffic_share:.1%}, "
+            f"size_index={portfolio_entry.metrics.size_index:.1f}"
+        )
+        print(f"editorial: {portfolio_entry.editorial_review.decision}")
+        print(portfolio_entry.entry.model_dump_json(indent=2))
         print()
 
-    print_clusters(
-        f"approved_clusters ({len(result['approved_clusters'])})",
-        result["approved_clusters"],
-    )
-    print_clusters(
-        f"rejected_clusters ({len(result['rejected_clusters'])})",
-        result["rejected_clusters"],
-    )
+    print(f"rejected_clusters ({len(result['rejected_clusters'])})\n")
+    for cluster_id in sorted(result["rejected_clusters"]):
+        cluster = result["rejected_clusters"][cluster_id]
+        titles = [article_by_id[article_id].title for article_id in cluster.article_ids]
+        print(f"  {cluster_id}: {', '.join(titles)}")

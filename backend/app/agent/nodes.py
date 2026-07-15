@@ -205,6 +205,7 @@ def _synthesis_prompt(
     cluster: CandidateCluster,
     articles: list[Article],
     metrics: ClusterMetrics,
+    revision_feedback: str | None = None,
 ) -> str:
     article_lines = []
     for article in articles:
@@ -214,7 +215,7 @@ def _synthesis_prompt(
             f"(categories: {categories}, pageviews: {article.pageviews:,})"
         )
 
-    return (
+    prompt = (
         "Write a commercial audience profile for this approved article cluster.\n"
         "The audience should sound specific and actionable for media planners, "
         "not generic.\n\n"
@@ -238,11 +239,20 @@ def _synthesis_prompt(
         + "\n".join(article_lines)
     )
 
+    if revision_feedback:
+        prompt += (
+            "\n\nRevise the audience entry using this editorial feedback:\n"
+            f"{revision_feedback}"
+        )
+
+    return prompt
+
 
 def synthesize_audience(
     cluster: CandidateCluster,
     articles: list[Article],
     metrics: ClusterMetrics,
+    revision_feedback: str | None = None,
 ) -> AudienceEntry:
     response = _get_client().chat.completions.create(
         model=MODEL,
@@ -265,7 +275,9 @@ def synthesize_audience(
             },
             {
                 "role": "user",
-                "content": _synthesis_prompt(cluster, articles, metrics),
+                "content": _synthesis_prompt(
+                    cluster, articles, metrics, revision_feedback=revision_feedback
+                ),
             },
         ],
     )

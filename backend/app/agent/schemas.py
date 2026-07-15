@@ -64,3 +64,11 @@ class EditorialReview(BaseModel):
     scores: EditorialScores
     decision: Literal["approve", "revise"]
     feedback: str
+
+
+class PortfolioEntry(BaseModel):
+    cluster_id: str
+    cluster: CandidateCluster
+    metrics: ClusterMetrics
+    entry: AudienceEntry
+    editorial_review: EditorialReview
