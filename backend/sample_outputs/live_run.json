@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-15T07:26:29.773291+00:00",
+  "generated_at": "2026-07-15T07:38:37.805760+00:00",
   "source": "live",
   "articles": [
     {
@@ -650,22 +650,22 @@
       },
       "entry": {
         "cluster_id": "cl-002",
-        "name": "Global Football Aficionados",
-        "trending_description": "As the 2026 FIFA World Cup approaches, global football fandom is surging, particularly among younger audiences invested in star players like Erling Haaland, Jude Bellingham, and Kylian Mbapp\u00e9. The excitement surrounding high-stakes tournaments and the emergence of young talents is driving heightened engagement across various platforms, making football a thriving topic in sports culture.",
+        "name": "FIFA Football Fanatics",
+        "trending_description": "With the 2026 FIFA World Cup on the horizon, interest in football and its star players has surged, especially among younger demographics who are increasingly following athletes like Erling Haaland, Jude Bellingham, and Kylian Mbapp\u00e9. The excitement surrounding both upcoming tournaments and renowned players is driving engagement across multiple platforms.",
         "buying_power": {
           "purchase_value": "high",
           "purchase_immediacy": "medium",
           "brand_category_breadth": "high",
           "trend_durability": "high",
           "overall_buying_power": "high",
-          "rationale": "This audience has strong disposable income, particularly among young professionals and sports enthusiasts eager to purchase merchandise, tickets, and subscriptions related to football. With the World Cup on the horizon, their purchasing decisions are likely to reflect a medium immediacy as they prepare for events and merchandise associated with their favorite players."
+          "rationale": "This audience exhibits strong buying power, driven by a passion for football and a tendency to invest in branded merchandise, match tickets, and memorabilia. Their engagement with high-profile events like the World Cup indicates a willingness to spend on experiences and products associated with their favorite players and teams."
         },
         "brand_categories": [
-          "Sports Merchandise",
-          "Streaming Services",
-          "Fitness Apparel",
-          "Sports Nutrition",
-          "Travel and Hospitality"
+          "Sports Apparel",
+          "Consumer Electronics",
+          "Food and Beverages",
+          "Travel and Experiential Marketing",
+          "Sports Equipment"
         ],
         "traffic_share": 0.9179125828832764,
         "size_index": 100.0
@@ -700,21 +700,21 @@
       "entry": {
         "cluster_id": "cl-004",
         "name": "Epic Fantasy Enthusiasts",
-        "trending_description": "The release of the highly anticipated film 'The Odyssey' directed by Christopher Nolan has reignited interest in epic fantasy narratives and cinematic adaptations of classic literature. Coupled with a star-studded cast and innovations in IMAX technology, audiences are responding enthusiastically, eager to immerse themselves in grand storytelling and visually stunning experiences.",
+        "trending_description": "The audience for the upcoming film 'The Odyssey' is gaining traction due to the resurgence of epic fantasy and adventure narratives in cinema, particularly appealing to those nostalgic for mythological storytelling. With Christopher Nolan at the helm, this film is poised to draw in viewers eager for high-quality, immersive cinematic experiences.",
         "buying_power": {
           "purchase_value": "high",
           "purchase_immediacy": "medium",
-          "brand_category_breadth": "medium",
+          "brand_category_breadth": "high",
           "trend_durability": "high",
           "overall_buying_power": "high",
-          "rationale": "This audience is characterized by a disposable income that allows for spending on both entertainment and related products. With the rising trend of epic films, there's strong potential for continual engagement in this genre for years to come."
+          "rationale": "This audience demonstrates strong financial potential for brands, driven by their willingness to spend on premium entertainment experiences. The epic fantasy genre tends to attract dedicated fans who are likely to invest in related merchandise, experiences, and high-end products."
         },
         "brand_categories": [
-          "Entertainment and Media",
-          "Merchandising (toys, collectibles)",
-          "Streaming Services",
-          "Gaming",
-          "Luxury Experiences"
+          "film and entertainment",
+          "merchandise and collectibles",
+          "streaming services",
+          "gaming",
+          "cinema technology"
         ],
         "traffic_share": 0.08208741711672364,
         "size_index": 0.0
@@ -748,6 +748,32 @@
       "article_ids": [
         "Bonnie_Tyler"
       ]
+    }
+  },
+  "cluster_reviews": {
+    "cl-001": {
+      "cluster_id": "cl-001",
+      "decision": "reject",
+      "reason": "The cluster is dominated by articles about individuals who have recently passed away, including Lindsey Graham, Sam Neill, and Ann Widdecombe. This indicates that the traffic is primarily driven by mourning and obituary coverage, which is not commercially viable for targeting. Despite the coherence of the articles, the focus on recent deaths fails the sensitivity check.",
+      "outlier_article_ids": []
+    },
+    "cl-002": {
+      "cluster_id": "cl-002",
+      "decision": "approve",
+      "reason": "The cluster consists of articles focused on prominent athletes and major sporting events, specifically in football and tennis. These topics are driven by sustained interests in sports, player performances, and upcoming tournaments, making them commercially viable for targeted advertising. There are no articles related to tragedy or mourning, and the audience is likely motivated by ongoing interests in sports and athletes.",
+      "outlier_article_ids": []
+    },
+    "cl-003": {
+      "cluster_id": "cl-003",
+      "decision": "reject",
+      "reason": "The article is about Bonnie Tyler, who is listed as having a death date in 2026, indicating that this is an obituary-driven piece. This suggests that the traffic is likely driven by mourning or recent news about her passing, which does not align with a commercially viable audience. Therefore, the cluster fails the sensitivity check.",
+      "outlier_article_ids": []
+    },
+    "cl-004": {
+      "cluster_id": "cl-004",
+      "decision": "approve",
+      "reason": "The article discusses a highly anticipated film directed by Christopher Nolan, which is likely to attract a commercial audience interested in cinema, particularly in the fantasy and action genres. The content is coherent and focuses on entertainment, making it suitable for commercial targeting.",
+      "outlier_article_ids": []
     }
   }
 }

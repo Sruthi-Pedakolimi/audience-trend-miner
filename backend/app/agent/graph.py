@@ -53,7 +53,7 @@ def cluster_node(state: GraphState) -> GraphState:
 
 def review_clusters_node(state: GraphState) -> GraphState:
     article_by_id = {article.id: article for article in state["articles"]}
-    cluster_reviews: dict[str, ReviewDecision] = {}
+    cluster_reviews = dict(state.get("cluster_reviews", {}))
 
     for cluster_id in state["pending_cluster_ids"]:
         cluster = state["candidate_clusters"][cluster_id]
@@ -284,6 +284,10 @@ def save_live_cache(articles: list[Article], result: GraphState) -> Path:
             cluster_id: cluster.model_dump()
             for cluster_id, cluster in result["rejected_clusters"].items()
         },
+        "cluster_reviews": {
+            cluster_id: review.model_dump()
+            for cluster_id, review in result["cluster_reviews"].items()
+        },
     }
     LIVE_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
     LIVE_CACHE_PATH.write_text(json.dumps(payload, indent=2))
@@ -307,6 +311,10 @@ def load_live_cache() -> tuple[list[Article], GraphState]:
         "rejected_clusters": {
             cluster_id: CandidateCluster.model_validate(cluster)
             for cluster_id, cluster in payload["rejected_clusters"].items()
+        },
+        "cluster_reviews": {
+            cluster_id: ReviewDecision.model_validate(review)
+            for cluster_id, review in payload.get("cluster_reviews", {}).items()
         },
     }
     return articles, result
