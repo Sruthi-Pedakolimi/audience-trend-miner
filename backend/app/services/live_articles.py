@@ -1,4 +1,5 @@
 import time
+from datetime import date
 
 import httpx
 
@@ -13,10 +14,14 @@ ENRICHMENT_DELAY_SECONDS = 1.0
 
 def build_live_articles(
     *,
+    end_date: date | None = None,
     weekly_top_n: int = DEFAULT_WEEKLY_TOP_N,
     enrich_n: int = DEFAULT_ENRICH_N,
 ) -> list[Article]:
-    top_titles, weekly_pageviews, _ = aggregate_weekly_top(top_n=weekly_top_n)
+    top_titles, weekly_pageviews, _ = aggregate_weekly_top(
+        end_date=end_date,
+        top_n=weekly_top_n,
+    )
     titles_to_enrich = top_titles[:enrich_n]
     articles: list[Article] = []
 
