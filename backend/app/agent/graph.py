@@ -217,28 +217,30 @@ def build_graph():
     return graph.compile()
 
 
-if __name__ == "__main__":
+def empty_graph_state(articles: list[Article]) -> GraphState:
+    return {
+        "articles": articles,
+        "candidate_clusters": {},
+        "pending_cluster_ids": [],
+        "cluster_reviews": {},
+        "approved_clusters": {},
+        "rejected_clusters": {},
+        "cluster_review_attempts": {},
+        "cluster_metrics": {},
+        "audience_entries": {},
+        "editorial_reviews": {},
+        "final_portfolio": [],
+    }
+
+
+def load_fixture_articles() -> list[Article]:
     fixture_path = Path(__file__).resolve().parents[2] / "tests/fixtures/sample_articles.json"
     raw_articles = json.loads(fixture_path.read_text())
-    articles = [Article.model_validate(item) for item in raw_articles]
-    article_by_id = {article.id: article for article in articles}
+    return [Article.model_validate(item) for item in raw_articles]
 
-    app = build_graph()
-    result = app.invoke(
-        {
-            "articles": articles,
-            "candidate_clusters": {},
-            "pending_cluster_ids": [],
-            "cluster_reviews": {},
-            "approved_clusters": {},
-            "rejected_clusters": {},
-            "cluster_review_attempts": {},
-            "cluster_metrics": {},
-            "audience_entries": {},
-            "editorial_reviews": {},
-            "final_portfolio": [],
-        }
-    )
+
+def print_graph_results(result: GraphState, articles: list[Article]) -> None:
+    article_by_id = {article.id: article for article in articles}
 
     print(f"final_portfolio ({len(result['final_portfolio'])} entries)\n")
     for portfolio_entry in result["final_portfolio"]:
@@ -261,3 +263,45 @@ if __name__ == "__main__":
         cluster = result["rejected_clusters"][cluster_id]
         titles = [article_by_id[article_id].title for article_id in cluster.article_ids]
         print(f"  {cluster_id}: {', '.join(titles)}")
+
+
+def run_graph(articles: list[Article]) -> GraphState:
+    app = build_graph()
+    return app.invoke(empty_graph_state(articles))
+
+
+if __name__ == "__main__":
+    import argparse
+
+    from app.services.live_articles import build_live_articles
+
+    parser = argparse.ArgumentParser(description="Run the audience trend miner graph")
+    source = parser.add_mutually_exclusive_group(required=True)
+    source.add_argument(
+        "--fixture",
+        action="store_true",
+        help="Run on the local sample_articles.json fixture",
+    )
+    source.add_argument(
+        "--live",
+        action="store_true",
+        help="Run on live Wikipedia weekly top articles",
+    )
+    args = parser.parse_args()
+
+    if args.fixture:
+        articles = load_fixture_articles()
+        print(f"loaded {len(articles)} fixture articles\n")
+    else:
+        print("fetching weekly top titles and enriching top 15...")
+        articles = build_live_articles()
+        print(f"loaded {len(articles)} live articles\n")
+        for article in articles:
+            print(
+                f"  - {article.title} | pageviews={article.pageviews:,} | "
+                f"categories={len(article.categories)}"
+            )
+        print()
+
+    result = run_graph(articles)
+    print_graph_results(result, articles)

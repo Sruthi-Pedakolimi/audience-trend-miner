@@ -155,9 +155,22 @@ def _cluster_prompt(cluster: CandidateCluster, articles: list[Article]) -> str:
         "You are reviewing a candidate audience cluster for commercial targeting.\n"
         "A coherent commercial audience is a set of articles whose readers share a "
         "clear, marketable interest that advertisers could target as one segment.\n\n"
+        "SENSITIVITY CHECK (required before approving):\n"
+        "Determine whether the cluster is dominated by tragedy, death, obituary coverage, "
+        "disaster, violent crime, or similar breaking-news mourning rather than a "
+        "genuine ongoing interest or behavior.\n"
+        "If traffic is mainly driven by a recent death, funeral, mass casualty event, "
+        "natural disaster, assassination, or other sensitive news spike, you MUST "
+        "reject the cluster even if it is perfectly coherent.\n"
+        "Do not approve obituary-driven or grief-driven audiences for commercial "
+        "targeting. A single article about someone who recently died is not a "
+        "marketable audience just because it is internally consistent.\n"
+        "Only approve when readers are likely motivated by sustained interests, "
+        "hobbies, behaviors, fandom, or purchase intent — not primarily by mourning "
+        "or breaking tragedy coverage.\n\n"
         "Decide one of:\n"
-        "- approve: the cluster is coherent enough to use as a commercial audience\n"
-        "- reject: the cluster mixes unrelated interests or is not commercially viable\n"
+        "- approve: coherent AND commercially appropriate (passes sensitivity check)\n"
+        "- reject: incoherent, not commercially viable, OR fails sensitivity check\n"
         "- remove_outliers: most articles fit, but one or more do not belong; "
         "list their ids in outlier_article_ids\n\n"
         "Always explain your reasoning in reason. "
@@ -185,6 +198,8 @@ def review_cluster(cluster: CandidateCluster, articles: list[Article]) -> Review
                 "role": "system",
                 "content": (
                     "You review article clusters for commercial audience viability. "
+                    "You must explicitly apply the sensitivity check and reject "
+                    "obituary-driven or tragedy-driven traffic even when coherent. "
                     "Respond only with JSON matching the requested schema."
                 ),
             },
