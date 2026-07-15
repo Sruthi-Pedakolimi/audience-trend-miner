@@ -69,8 +69,30 @@ const EDITORIAL_LABELS = {
   buying_power_justification: 'Buying power justification',
 }
 
+function ReviewRepairs({ repairs }) {
+  if (!repairs?.length) return null
+
+  const noun = repairs.length === 1 ? 'article' : 'articles'
+
+  return (
+    <details className="mb-4 rounded-md border border-amber-200 bg-amber-50/70 px-3 py-2">
+      <summary className="text-sm font-medium text-amber-900 cursor-pointer select-none">
+        {repairs.length} {noun} removed during review
+      </summary>
+      <ul className="mt-2 space-y-2">
+        {repairs.map((repair) => (
+          <li key={repair.article_id} className="text-sm text-amber-950">
+            <span className="font-medium">{repair.article_title}</span>
+            <span className="text-amber-800"> — {repair.reason}</span>
+          </li>
+        ))}
+      </ul>
+    </details>
+  )
+}
+
 export default function PortfolioCard({ item }) {
-  const { entry, metrics, editorial_review: review } = item
+  const { entry, metrics, editorial_review: review, review_repairs: repairs } = item
   const { buying_power: bp } = entry
 
   return (
@@ -81,6 +103,8 @@ export default function PortfolioCard({ item }) {
           {entry.trending_description}
         </p>
       </header>
+
+      <ReviewRepairs repairs={repairs} />
 
       <section className="grid gap-3 mb-6 sm:grid-cols-2">
         <MetricBar label="Traffic share" value={metrics.traffic_share} max={1} />

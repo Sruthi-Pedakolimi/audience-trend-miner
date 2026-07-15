@@ -25,6 +25,12 @@ class ReviewDecision(BaseModel):
     outlier_article_ids: list[str] = []
 
 
+class ReviewRepair(BaseModel):
+    article_id: str
+    article_title: str
+    reason: str
+
+
 class ClusterMetrics(BaseModel):
     cluster_id: str
     traffic_share: float
@@ -72,3 +78,4 @@ class PortfolioEntry(BaseModel):
     metrics: ClusterMetrics
     entry: AudienceEntry
     editorial_review: EditorialReview
+    review_repairs: list[ReviewRepair] = []

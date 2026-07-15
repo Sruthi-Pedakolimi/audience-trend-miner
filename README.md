@@ -9,6 +9,32 @@ Given a week's worth of trending Wikipedia pages, the system clusters related to
 - [`docs/architecture.md`](docs/architecture.md) — full pipeline design, data flow, and rationale behind key decisions
 - [`docs/prompt-log.md`](docs/prompt-log.md) — representative log of the Cursor-driven build process
 
+
+## Screenshots
+
+<table>
+  <tr>
+    <td width="33%">
+      <a href="docs/screenshots/portfolio-entry.jpg">
+        <img src="docs/screenshots/portfolio-entry.jpg" width="100%"/>
+      </a>
+      <p align="center"><b>Approved audience entry</b><br/>Full portfolio card with buying-power rubric and editorial scores</p>
+    </td>
+    <td width="33%">
+      <a href="docs/screenshots/excluded-example.jpg">
+        <img src="docs/screenshots/excluded-example.jpg" width="100%"/>
+      </a>
+      <p align="center"><b>Excluded clusters with reasoning</b><br/>Non-commercial noise (e.g. tragedy-driven trends) filtered and explained</p>
+    </td>
+    <td width="33%">
+      <a href="docs/screenshots/repair-example.jpg">
+        <img src="docs/screenshots/repair-example.jpg" width="100%"/>
+      </a>
+      <p align="center"><b>Cluster repair in action</b><br/>An outlier article stripped from a cluster before approval</p>
+    </td>
+  </tr>
+</table>
+
 ## Project Structure
 
 ```
@@ -99,6 +125,8 @@ Requires `OPENAI_API_KEY` to be set in your shell environment or a root-level `.
 
 ### Via the UI
 Open the frontend, pick a week-ending date and article limit, choose **Cached** (fast, reuses previously fetched Wikipedia data) or **Live** (fetches fresh from Wikipedia right now), and click **Generate portfolio**. Every request runs the real LangGraph pipeline — a repeated identical request returns instantly from a keyed cache, but any new combination of inputs triggers a full, live pipeline execution (typically 30-60 seconds).
+
+Approved audience cards show a note when a cluster was repaired during review (an outlier article removed before approval), with the article and the reviewer's reasoning available on click. The **Excluded** tab shows every rejected cluster alongside the reviewer's reason — this is where the non-commercial noise filtering (e.g. tragedy-driven trends) is directly visible.
 
 ### Via the API directly
 

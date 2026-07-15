@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-07-15T17:39:15.112870+00:00",
+  "generated_at": "2026-07-15T17:42:33.769480+00:00",
   "week_ending": "2026-07-14",
-  "article_limit": 20,
-  "data_mode": "cached",
+  "article_limit": 25,
+  "data_mode": "live",
   "articles": [
     {
       "id": "Lindsey_Graham",
       "title": "Lindsey Graham",
-      "summary": "Lindsey Olin Graham was an American politician and attorney who represented South Carolina in the United States Senate from 2003 until his death in 2026. A member of the Republican Party, he previously represented South Carolina's 3rd congressional district in the U.S. House of Representatives from 1995 to 2003 and served in the South Carolina House of Representatives from 1993 to 1995.",
+      "summary": "Lindsey Olin Graham was an American politician and attorney who represented South Carolina in the United States Senate from 2003 until his death in 2026. A member of the Republican Party, he represented South Carolina's 3rd congressional district in the U.S. House of Representatives from 1995 to 2003 and served in the South Carolina House of Representatives from 1993 to 1995.",
       "categories": [
         "1955 births",
         "2026 deaths",
@@ -21,6 +21,7 @@
         "21st-century United States representatives",
         "21st-century United States senators",
         "American Zionists",
+        "American gay politicians",
         "American military lawyers",
         "American people of the 2026 Iran war",
         "American prosecutors",
@@ -217,7 +218,7 @@
     {
       "id": "Jude_Bellingham",
       "title": "Jude Bellingham",
-      "summary": "Jude Victor William Bellingham is an English professional footballer who plays as a midfielder for La Liga club Real Madrid and the England national team. Regarded as one of the best players in the world, he is known for his athleticism and ball-winning ability.",
+      "summary": "Jude Victor William Bellingham is an English professional footballer who plays as a midfielder for La Liga club Real Madrid and the England national team. Regarded as \"one of the best players in the world\", he is known for his athleticism and ball-winning ability.",
       "categories": [
         "2003 births",
         "2022 FIFA World Cup players",
@@ -257,6 +258,171 @@
         "UEFA Euro 2024 players"
       ],
       "pageviews": 2186324
+    },
+    {
+      "id": "Bonnie_Tyler",
+      "title": "Bonnie Tyler",
+      "summary": "Gaynor Sullivan, known professionally as Bonnie Tyler, was a Welsh singer. Known for her distinctive husky voice, she came to prominence with the release of her debut studio album The World Starts Tonight (1977) and its singles \"Lost in France\" and \"More Than a Lover\". Her 1977 single \"It's a Heartache\" reached number four on the UK singles chart and number three on the US Billboard Hot 100.",
+      "categories": [
+        "1951 births",
+        "2026 deaths",
+        "20th-century Welsh women singers",
+        "21st-century Welsh women singers",
+        "Articles covered by WikiProject Wikify from July 2026",
+        "Bonnie Tyler",
+        "British country singer-songwriters",
+        "British soft rock musicians",
+        "British women country singers",
+        "British women rock singers",
+        "CS1: unfit URL",
+        "Columbia Records artists",
+        "Eurovision Song Contest entrants",
+        "Hansa Records artists",
+        "Members of the Order of the British Empire",
+        "Official website different in Wikidata and Wikipedia",
+        "Pages containing London Gazette template with parameter supp set to y",
+        "Pages containing links to subscription-only content",
+        "People from Neath Port Talbot",
+        "RCA Records artists",
+        "Welsh Protestants",
+        "Welsh expatriates in Portugal",
+        "Welsh pop singers",
+        "Welsh rock singers",
+        "Winners of Yamaha Music Festival"
+      ],
+      "pageviews": 2011947
+    },
+    {
+      "id": "Kylian_Mbapp\u00e9",
+      "title": "Kylian Mbapp\u00e9",
+      "summary": "Kylian Mbapp\u00e9 Lottin is a French professional footballer who plays as a forward for La Liga club Real Madrid and captains the France national team. Widely regarded as one of the best players in the world, he is known for his pace, dribbling, and clinical finishing.",
+      "categories": [
+        "1998 births",
+        "2018 FIFA World Cup players",
+        "2022 FIFA World Cup players",
+        "2026 FIFA World Cup players",
+        "21st-century French sportsmen",
+        "AS Monaco FC players",
+        "Articles using Template:Medal with Runner-up",
+        "Articles using Template:Medal with Winner",
+        "Association football people awarded knighthoods",
+        "Biography with signature",
+        "Black French sportspeople",
+        "Championnat National 2 players",
+        "Expatriate men's footballers in Monaco",
+        "Expatriate men's footballers in Spain",
+        "FIFA Men's Century Club",
+        "FIFA World Cup\u2013winning players",
+        "Footballers from Bondy",
+        "Footballers from Paris",
+        "France men's international footballers",
+        "France men's youth international footballers",
+        "French expatriate men's footballers",
+        "French expatriate sportspeople in Monaco",
+        "French expatriate sportspeople in Spain",
+        "French football chairmen and investors",
+        "French men's footballers",
+        "French people of Kabyle descent",
+        "French recipients of the Legion of Honour",
+        "French sportspeople of Algerian descent",
+        "French sportspeople of Cameroonian descent",
+        "Golden Boy winners",
+        "Good articles",
+        "INF Clairefontaine players",
+        "Knights of the Legion of Honour",
+        "La Liga players",
+        "Ligue 1 players",
+        "Living people",
+        "Mbapp\u00e9 family",
+        "Men's association football forwards",
+        "Paris Saint-Germain FC players",
+        "Pichichi Trophy winners",
+        "Real Madrid CF players",
+        "UEFA Champions League top scorers",
+        "UEFA Euro 2020 players",
+        "UEFA Euro 2024 players",
+        "UEFA Nations League\u2013winning players"
+      ],
+      "pageviews": 1552594
+    },
+    {
+      "id": "Mitch_McConnell",
+      "title": "Mitch McConnell",
+      "summary": "Addison Mitchell McConnell III is an American politician and attorney serving as the senior United States senator from Kentucky, a seat he has held since 1985. A member of the Republican Party, McConnell is in his seventh Senate term, making him the longest-serving senator in Kentucky history. He served from 2007 to 2025 as the leader of the Senate Republican Conference, including two stints as minority leader, and was majority leader from 2015 to 2021, making him the longest-serving Senate party leader in U.S. history.",
+      "categories": [
+        "1942 births",
+        "20th-century American lawyers",
+        "20th-century Kentucky politicians",
+        "20th-century United States senators",
+        "21st-century American lawyers",
+        "21st-century Kentucky politicians",
+        "21st-century United States senators",
+        "Activists for African-American civil rights",
+        "American lawyers with disabilities",
+        "American people of English descent",
+        "American people of Scotch-Irish descent",
+        "American politicians with disabilities",
+        "Baptists from Alabama",
+        "Baptists from Kentucky",
+        "Chao family",
+        "County judges in Kentucky",
+        "DuPont Manual High School alumni",
+        "Kentucky Republicans",
+        "Kentucky lawyers",
+        "Living people",
+        "Members of the Sons of the American Revolution",
+        "Military personnel from Kentucky",
+        "Mitch McConnell",
+        "People appearing on C-SPAN",
+        "People associated with the 2008 United States presidential election",
+        "People associated with the 2012 United States presidential election",
+        "People associated with the 2016 United States presidential election",
+        "People associated with the 2020 United States presidential election",
+        "People associated with the 2024 United States presidential election",
+        "People associated with the January 6 United States Capitol attack",
+        "People from Sheffield, Alabama",
+        "Polio survivors",
+        "Politicians from Louisville, Kentucky",
+        "Republican Party United States senators from Kentucky",
+        "Southern Baptists",
+        "United States congressional aides",
+        "University of Kentucky Rosenberg College of Law alumni",
+        "University of Louisville alumni"
+      ],
+      "pageviews": 1478801
+    },
+    {
+      "id": "Jannik_Sinner",
+      "title": "Jannik Sinner",
+      "summary": "Jannik Sinner is an Italian professional tennis player. He is currently ranked world No.1 by Association of Tennis Professionals (ATP), and was the year-end No. 1 in 2024. Sinner has won 30 ATP Tour-level singles titles, including five majors, ten Masters and two ATP Finals titles. He led Italy to back-to-back Davis Cup crowns in 2023 and 2024.",
+      "categories": [
+        "2001 births",
+        "21st-century Italian sportsmen",
+        "ATP number 1 ranked singles tennis players",
+        "Australian Open (tennis) champions",
+        "Biography with signature",
+        "Davis Cup player template using new ID",
+        "Doping cases in tennis",
+        "Germanophone Italian people",
+        "Good articles",
+        "Grand Slam (tennis) champions in men's singles",
+        "ITF World Champions",
+        "Italian expatriate sportspeople in Monaco",
+        "Italian male tennis players",
+        "Italian philanthropists",
+        "Italian sportspeople in doping cases",
+        "Jannik Sinner",
+        "Living people",
+        "Pages with Austrian German IPA",
+        "Pages with Italian IPA",
+        "People from Sexten",
+        "S-aft: 'after' parameter includes the word 'incumbent'",
+        "Sportspeople from Innichen",
+        "Template:Succession box: 'after' parameter includes the word 'incumbent'",
+        "US Open (tennis) champions",
+        "Wimbledon champions"
+      ],
+      "pageviews": 1382279
     },
     {
       "id": "The_Odyssey_(2026_film)",
@@ -507,6 +673,141 @@
         "Political Internet memes"
       ],
       "pageviews": 1170568
+    },
+    {
+      "id": "Jayden_Adams",
+      "title": "Jayden Adams",
+      "summary": "Jayden Oswin Adams was a South African professional soccer player who played as a defensive midfielder. In his career, he played for Stellenbosch, Mamelodi Sundowns and the South African national team before his death.",
+      "categories": [
+        "2001 births",
+        "2023 Africa Cup of Nations players",
+        "2026 FIFA World Cup players",
+        "2026 deaths",
+        "21st-century South African sportsmen",
+        "CAF Champions League\u2013winning players",
+        "Mamelodi Sundowns F.C. players",
+        "Men's association football midfielders",
+        "Men's association football wingers",
+        "Soccer players from Cape Town",
+        "South Africa men's international soccer players",
+        "South African Premier Division players",
+        "South African men's soccer players",
+        "Stellenbosch F.C. players"
+      ],
+      "pageviews": 984951
+    },
+    {
+      "id": "Cristiano_Ronaldo",
+      "title": "Cristiano Ronaldo",
+      "summary": "Cristiano Ronaldo dos Santos Aveiro is a Portuguese professional footballer who plays as a forward for and captains the Saudi Pro League club Al-Nassr and the Portugal national team. Widely regarded as one of the greatest players in history and the greatest Portuguese player ever, he has won numerous individual accolades throughout his career, including five Ballon d'Or awards, a record three UEFA Men's Player of the Year Awards, and four European Golden Shoes. He was named the world's best player five times by FIFA.",
+      "categories": [
+        "1985 births",
+        "2006 FIFA World Cup players",
+        "2010 FIFA World Cup players",
+        "2014 FIFA World Cup players",
+        "2017 FIFA Confederations Cup players",
+        "2018 FIFA World Cup players",
+        "2022 FIFA World Cup players",
+        "2026 FIFA World Cup players",
+        "20th-century Roman Catholics",
+        "21st-century Portuguese sportsmen",
+        "21st-century Roman Catholics",
+        "Al-Nassr FC players",
+        "Articles covered by WikiProject Wikify from July 2026",
+        "Articles using Template:Medal with Runner-up",
+        "Articles using Template:Medal with Winner",
+        "BBC Sports Personality World Sport Star of the Year winners",
+        "Ballon d'Or winners",
+        "Biography with signature",
+        "CS1: unfit URL",
+        "Commanders of the Order of Merit (Portugal)",
+        "Cristiano Ronaldo",
+        "Expatriate men's footballers in England",
+        "Expatriate men's footballers in Italy",
+        "Expatriate men's footballers in Saudi Arabia",
+        "Expatriate men's footballers in Spain",
+        "FIFA Men's Century Club",
+        "FIFA World Player of the Year winners",
+        "First Division/Premier League top scorers",
+        "Footballers at the 2004 Summer Olympics",
+        "Footballers from Funchal",
+        "Golden Globes (Portugal) winners",
+        "Grand Officers of the Order of Prince Henry",
+        "Guinness World Records holders",
+        "Juventus FC players",
+        "La Liga players",
+        "Living people",
+        "Manchester United F.C. players",
+        "Men's association football forwards",
+        "Men's association football wingers",
+        "Olympic footballers for Portugal",
+        "Pages with European Portuguese IPA",
+        "Pichichi Trophy winners",
+        "Portugal men's international footballers",
+        "Portugal men's under-21 international footballers",
+        "Portugal men's youth international footballers",
+        "Portuguese Roman Catholics",
+        "Portuguese billionaires",
+        "Portuguese expatriate men's footballers",
+        "Portuguese expatriate sportspeople in England",
+        "Portuguese expatriate sportspeople in Italy",
+        "Portuguese expatriate sportspeople in Saudi Arabia",
+        "Portuguese expatriate sportspeople in Spain",
+        "Portuguese football chairmen and investors",
+        "Portuguese men's footballers",
+        "Portuguese people of Cape Verdean descent",
+        "Portuguese philanthropists",
+        "Premier League player template using new ID",
+        "Premier League players",
+        "Primeira Liga players",
+        "Real Madrid CF players",
+        "Saudi Pro League players",
+        "Segunda Divis\u00e3o players",
+        "Serie A players",
+        "Sporting CP B players",
+        "Sporting CP footballers",
+        "Sportspeople of Cape Verdean descent",
+        "The Best FIFA Men's Player winners",
+        "UEFA Champions League top scorers",
+        "UEFA Champions League\u2013winning players",
+        "UEFA Euro 2004 players",
+        "UEFA Euro 2008 players",
+        "UEFA Euro 2012 players",
+        "UEFA Euro 2016 players",
+        "UEFA Euro 2020 players",
+        "UEFA Euro 2024 players",
+        "UEFA European Championship\u2013winning players",
+        "UEFA Men's Player of the Year Award winners",
+        "UEFA Nations League\u2013winning players",
+        "World Soccer Magazine World Player of the Year winners",
+        "World record holders"
+      ],
+      "pageviews": 940065
+    },
+    {
+      "id": ".xxx",
+      "title": ".xxx",
+      "summary": ".xxx is a sponsored top-level domain (sTLD) intended as a voluntary option for pornographic websites on the Internet. This option enables website operators to establish a web address like example.xxx instead of example.com. The sponsoring organization is the International Foundation for Online Responsibility (IFFOR). The domain name registry for .xxx was initially operated by ICM Registry. The board of the Internet Corporation for Assigned Names and Numbers (ICANN), the nonprofit that manages several technical aspects of the Internet including the list of top-level domains, approved the .xxx registry agreement with ICM Registry in March 2011. The first .xxx websites went into operation in April 2011.",
+      "categories": [
+        "Erotica and pornography websites",
+        "Internet censorship in India",
+        "Internet properties established in 2011",
+        "Sponsored top-level domains",
+        "Top-level domains"
+      ],
+      "pageviews": 865817
+    },
+    {
+      "id": ".xyz",
+      "title": ".xyz",
+      "summary": ".xyz is a top-level domain name that was proposed in ICANN's new generic top-level domain (gTLD) Program for consisting of the last three letters of the Latin-script alphabet. XYZ.com and CentralNic are the registries for the domain, which was created by entrepreneur Daniel Negari. It became available to the general public on June 2, 2014, thereafter becoming widely used by tech startups, creators, and Web3 projects.",
+      "categories": [
+        "Companies based in Santa Monica, California",
+        "Domain Name System Security Extensions",
+        "Generic top-level domains",
+        "Internet properties established in 2014"
+      ],
+      "pageviews": 831070
     }
   ],
   "final_portfolio": [
@@ -518,37 +819,40 @@
           "Erling_Haaland",
           "2026_FIFA_World_Cup",
           "Jude_Bellingham",
+          "Kylian_Mbapp\u00e9",
+          "Jannik_Sinner",
           "Lamine_Yamal",
           "Lionel_Messi",
-          "Arthur_Fery"
+          "Arthur_Fery",
+          "Cristiano_Ronaldo"
         ]
       },
       "metrics": {
         "cluster_id": "cl-002",
-        "traffic_share": 0.899655124644083,
+        "traffic_share": 0.8390293615224809,
         "size_index": 100.0,
-        "total_pageviews": 11871392
+        "total_pageviews": 15746330
       },
       "entry": {
         "cluster_id": "cl-002",
-        "name": "Gen Z & Millennial Sports Enthusiasts",
-        "trending_description": "Increased traffic around soccer superstars and the 2026 FIFA World Cup has highlighted a surge in interest from younger audiences. With the upcoming World Cup being the first hosted by three nations and featuring an expanded roster of teams, it captivates the enthusiasm of Gen Z and Millennials eager for international sporting events.",
+        "name": "Football Phenoms & Tennis Triumphs",
+        "trending_description": "With the 2026 FIFA World Cup fast approaching, excitement among football fans is surging, particularly around stars like Erling Haaland, Kylian Mbapp\u00e9, and Lionel Messi. Additionally, the rise of elite tennis players such as Jannik Sinner and Arthur Fery adds to the allure of sports, creating a dynamic crossover audience eager for premium experiences and merchandise related to their favorite athletes.",
         "buying_power": {
-          "purchase_value": "medium",
-          "purchase_immediacy": "high",
+          "purchase_value": "high",
+          "purchase_immediacy": "medium",
           "brand_category_breadth": "high",
           "trend_durability": "medium",
-          "overall_buying_power": "medium",
-          "rationale": "This audience segment exhibits strong purchasing habits in sports apparel, technology, and entertainment. Their engagement with prominent football figures increases their potential to spend on related merchandise and experiences as the World Cup approaches."
+          "overall_buying_power": "high",
+          "rationale": "This audience exhibits high purchasing power driven by their passion for sport and loyalty to star athletes. They are willing to invest in premium products, memberships, and experiences related to their favorite sports, making them a prime target for advertisers focusing on high-ticket items and exclusive offerings."
         },
         "brand_categories": [
           "Sports Apparel",
           "Consumer Electronics",
-          "Streaming Services",
-          "Travel",
-          "Gaming"
+          "Event Ticketing",
+          "Fitness and Nutrition",
+          "Sports Memorabilia"
         ],
-        "traffic_share": 0.899655124644083,
+        "traffic_share": 0.8390293615224809,
         "size_index": 100.0
       },
       "editorial_review": {
@@ -563,52 +867,109 @@
         "decision": "approve",
         "feedback": ""
       },
-      "review_repairs": []
+      "review_repairs": [
+        {
+          "article_id": "Jayden_Adams",
+          "article_title": "Jayden Adams",
+          "reason": "The cluster primarily focuses on football and tennis, showcasing prominent players and events. However, the article about Jayden Adams, who recently passed away, introduces a sensitivity issue as it is obituary-driven content. This article does not align with the commercial viability criteria for the audience cluster."
+        }
+      ]
     },
     {
-      "cluster_id": "cl-003",
+      "cluster_id": "cl-004",
       "cluster": {
-        "cluster_id": "cl-003",
+        "cluster_id": "cl-004",
         "article_ids": [
           "The_Odyssey_(2026_film)"
         ]
       },
       "metrics": {
-        "cluster_id": "cl-003",
-        "traffic_share": 0.100344875355917,
+        "cluster_id": "cl-004",
+        "traffic_share": 0.07055350533057016,
         "size_index": 0.0,
         "total_pageviews": 1324100
       },
       "entry": {
-        "cluster_id": "cl-003",
-        "name": "Epic Fantasy Enthusiasts",
-        "trending_description": "With the anticipated release of 'The Odyssey', a dramatic retelling of a classic tale by Christopher Nolan, there is a surge in interest for epic fantasy films. The blend of star-studded casts and grand storytelling, combined with the popularity of both historical adaptations and action-packed narratives, has captured the attention of moviegoers. This audience is seeking immersive experiences that merge nostalgia with contemporary storytelling techniques.",
+        "cluster_id": "cl-004",
+        "name": "Epic Film Enthusiasts",
+        "trending_description": "The interest in epic storytelling is resurging, driven by the upcoming release of Christopher Nolan's film 'The Odyssey,' which is set to attract a wide audience eager for grand narratives and spectacular visuals. The combination of a star-studded cast and the adaptation of a classic tale resonates strongly with consumers seeking both entertainment and cultural depth, making this demographic particularly relevant in the current media landscape.",
         "buying_power": {
           "purchase_value": "high",
           "purchase_immediacy": "medium",
           "brand_category_breadth": "high",
-          "trend_durability": "high",
+          "trend_durability": "medium",
           "overall_buying_power": "high",
-          "rationale": "As consumers increasingly gravitate towards high-quality productions and cinematic experiences, the purchasing power of this audience segment is substantial, particularly in ticket sales, merchandise, and home viewing options."
+          "rationale": "This audience exhibits high purchasing potential due to their affinity for blockbuster films and associated merchandise, leading to significant spending on tickets, streaming services, and collectibles. Their interest in multiple brand categories also indicates willingness to invest across various entertainment and lifestyle sectors."
         },
         "brand_categories": [
-          "Film and Entertainment",
-          "Home Media",
-          "Event Experiences",
+          "Entertainment",
           "Streaming Services",
-          "Merchandise and Collectibles"
+          "Merchandising",
+          "Theatrical Releases",
+          "Film Festivals"
         ],
-        "traffic_share": 0.100344875355917,
+        "traffic_share": 0.07055350533057016,
         "size_index": 0.0
       },
       "editorial_review": {
-        "cluster_id": "cl-003",
+        "cluster_id": "cl-004",
         "scores": {
           "cluster_coherence": 4,
           "commercial_relevance": 5,
           "evidence_grounding": 4,
           "audience_specificity": 4,
           "buying_power_justification": 5
+        },
+        "decision": "approve",
+        "feedback": ""
+      },
+      "review_repairs": []
+    },
+    {
+      "cluster_id": "cl-005",
+      "cluster": {
+        "cluster_id": "cl-005",
+        "article_ids": [
+          ".xxx",
+          ".xyz"
+        ]
+      },
+      "metrics": {
+        "cluster_id": "cl-005",
+        "traffic_share": 0.09041713314694903,
+        "size_index": 10.01918037876963,
+        "total_pageviews": 1696887
+      },
+      "entry": {
+        "cluster_id": "cl-005",
+        "name": "Digital Domain Innovators",
+        "trending_description": "With the rise of new top-level domains like .xyz and .xxx, innovators and entrepreneurs in the tech and creative sectors are now prioritizing online identity. This audience is increasingly seeking unique digital solutions to distinguish themselves in a saturated marketplace, reflecting a rising trend toward personalized online branding.",
+        "buying_power": {
+          "purchase_value": "medium",
+          "purchase_immediacy": "high",
+          "brand_category_breadth": "high",
+          "trend_durability": "medium",
+          "overall_buying_power": "medium",
+          "rationale": "This audience demonstrates a medium overall buying power as they invest in unique web identities and related digital services. Their purchase immediacy is high due to the competitive nature of digital branding, alongside a diverse interest in multiple categories."
+        },
+        "brand_categories": [
+          "Web Hosting Services",
+          "Digital Marketing",
+          "Tech Startups",
+          "Online Branding Solutions",
+          "Creative Agencies"
+        ],
+        "traffic_share": 0.09041713314694903,
+        "size_index": 10.01918037876963
+      },
+      "editorial_review": {
+        "cluster_id": "cl-005",
+        "scores": {
+          "cluster_coherence": 4,
+          "commercial_relevance": 4,
+          "evidence_grounding": 3,
+          "audience_specificity": 4,
+          "buying_power_justification": 3
         },
         "decision": "approve",
         "feedback": ""
@@ -623,7 +984,14 @@
         "Lindsey_Graham",
         "Sam_Neill",
         "Ann_Widdecombe",
+        "Mitch_McConnell",
         "Count_Binface"
+      ]
+    },
+    "cl-003": {
+      "cluster_id": "cl-003",
+      "article_ids": [
+        "Bonnie_Tyler"
       ]
     }
   },
@@ -631,19 +999,31 @@
     "cl-002": {
       "cluster_id": "cl-002",
       "decision": "approve",
-      "reason": "The cluster consists of articles focused on prominent athletes and major sporting events, specifically in football and tennis. These topics reflect sustained interests and behaviors of fans and consumers, making them commercially viable for targeted advertising. There are no articles related to tragedy or mourning, ensuring the cluster is appropriate for commercial targeting.",
+      "reason": "The cluster consists of articles focused on prominent football players and the upcoming 2026 FIFA World Cup, which are topics of sustained interest and engagement among sports fans. There are no articles related to tragedy or mourning, making it commercially viable for targeting advertisers in the sports and entertainment sectors.",
       "outlier_article_ids": []
     },
     "cl-001": {
       "cluster_id": "cl-001",
       "decision": "reject",
-      "reason": "The cluster is dominated by articles about individuals who have recently passed away, which indicates that the traffic is primarily driven by mourning and obituary coverage. This does not represent a commercially viable audience as it lacks sustained interest or behavior beyond the recent deaths.",
+      "reason": "The cluster is dominated by articles about individuals who have recently passed away, including Lindsey Graham, Sam Neill, and Ann Widdecombe. This indicates that the traffic is primarily driven by mourning and obituary coverage, which does not align with a commercially viable audience. Therefore, the cluster fails the sensitivity check.",
       "outlier_article_ids": []
     },
     "cl-003": {
       "cluster_id": "cl-003",
+      "decision": "reject",
+      "reason": "The article is about Bonnie Tyler, who is listed as having a death date in 2026, indicating that this content is likely driven by an obituary or a similar sensitive topic. This raises concerns about the audience being primarily motivated by mourning rather than sustained interest or commercial viability.",
+      "outlier_article_ids": []
+    },
+    "cl-005": {
+      "cluster_id": "cl-005",
       "decision": "approve",
-      "reason": "The article discusses a highly anticipated film directed by Christopher Nolan, which is likely to attract a sustained audience interested in cinema, particularly in the fantasy and action genres. The content is coherent and commercially viable, focusing on entertainment rather than tragedy or sensitive topics.",
+      "reason": "The articles in this cluster focus on top-level domains (.xxx and .xyz) and their implications for internet usage and branding. They cater to a commercial audience interested in internet properties, domain registration, and online business, which are sustainable interests rather than driven by tragedy or mourning. The content is coherent and relevant for targeted advertising in the tech and internet sectors.",
+      "outlier_article_ids": []
+    },
+    "cl-004": {
+      "cluster_id": "cl-004",
+      "decision": "approve",
+      "reason": "The article discusses a highly anticipated film directed by Christopher Nolan, which is likely to attract a sustained audience interested in cinema, particularly in the fantasy and action genres. This audience is marketable for advertisers targeting film enthusiasts and fans of the director, making it commercially viable.",
       "outlier_article_ids": []
     }
   }

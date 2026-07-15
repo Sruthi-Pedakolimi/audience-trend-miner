@@ -14,6 +14,7 @@ from app.agent.schemas import (
     EditorialReview,
     PortfolioEntry,
     ReviewDecision,
+    ReviewRepair,
 )
 from app.clustering.cluster_metrics import compute_cluster_metrics
 from app.clustering.candidate_clusterer import cluster_articles
@@ -29,6 +30,7 @@ class GraphState(TypedDict):
     candidate_clusters: dict[str, CandidateCluster]
     pending_cluster_ids: list[str]
     cluster_reviews: dict[str, ReviewDecision]
+    cluster_review_history: dict[str, list[ReviewDecision]]
     approved_clusters: dict[str, CandidateCluster]
     rejected_clusters: dict[str, CandidateCluster]
     cluster_review_attempts: dict[str, int]
@@ -77,15 +79,23 @@ def cluster_node(state: GraphState) -> GraphState:
 def review_clusters_node(state: GraphState) -> GraphState:
     article_by_id = {article.id: article for article in state["articles"]}
     cluster_reviews = dict(state.get("cluster_reviews", {}))
+    cluster_review_history = dict(state.get("cluster_review_history", {}))
 
     for cluster_id in state["pending_cluster_ids"]:
         cluster = state["candidate_clusters"][cluster_id]
         cluster_articles = [
             article_by_id[article_id] for article_id in cluster.article_ids
         ]
-        cluster_reviews[cluster_id] = review_cluster(cluster, cluster_articles)
+        review = review_cluster(cluster, cluster_articles)
+        cluster_reviews[cluster_id] = review
+        history = list(cluster_review_history.get(cluster_id, []))
+        history.append(review)
+        cluster_review_history[cluster_id] = history
 
-    return {"cluster_reviews": cluster_reviews}
+    return {
+        "cluster_reviews": cluster_reviews,
+        "cluster_review_history": cluster_review_history,
+    }
 
 
 def apply_review_decisions_node(state: GraphState) -> GraphState:
@@ -201,7 +211,32 @@ def critique_and_revise_once_node(state: GraphState) -> GraphState:
     }
 
 
+def build_review_repairs(
+    history: list[ReviewDecision],
+    articles_by_id: dict[str, Article],
+) -> list[ReviewRepair]:
+    repairs: list[ReviewRepair] = []
+
+    for review in history:
+        if review.decision != "remove_outliers":
+            continue
+
+        for article_id in review.outlier_article_ids:
+            article = articles_by_id.get(article_id)
+            repairs.append(
+                ReviewRepair(
+                    article_id=article_id,
+                    article_title=article.title if article else article_id,
+                    reason=review.reason,
+                )
+            )
+
+    return repairs
+
+
 def finalize_node(state: GraphState) -> GraphState:
+    articles_by_id = {article.id: article for article in state["articles"]}
+    review_history = state.get("cluster_review_history", {})
     final_portfolio = [
         PortfolioEntry(
             cluster_id=cluster_id,
@@ -209,6 +244,10 @@ def finalize_node(state: GraphState) -> GraphState:
             metrics=state["cluster_metrics"][cluster_id],
             entry=state["audience_entries"][cluster_id],
             editorial_review=state["editorial_reviews"][cluster_id],
+            review_repairs=build_review_repairs(
+                review_history.get(cluster_id, []),
+                articles_by_id,
+            ),
         )
         for cluster_id in sorted(state["approved_clusters"])
     ]
@@ -248,6 +287,7 @@ def empty_graph_state(articles: list[Article]) -> GraphState:
         "candidate_clusters": {},
         "pending_cluster_ids": [],
         "cluster_reviews": {},
+        "cluster_review_history": {},
         "approved_clusters": {},
         "rejected_clusters": {},
         "cluster_review_attempts": {},
