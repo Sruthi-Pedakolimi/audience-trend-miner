@@ -19,6 +19,7 @@ from app.agent.schemas import (
 MODEL = "gpt-4o-mini"
 ENV_PATH = Path(__file__).resolve().parents[3] / ".env"
 LOW_SCORE_THRESHOLD = 2
+JUDGEMENT_TEMPERATURE = 0.1
 
 REVIEW_RESPONSE_SCHEMA = {
     "type": "object",
@@ -170,6 +171,7 @@ def _cluster_prompt(cluster: CandidateCluster, articles: list[Article]) -> str:
 def review_cluster(cluster: CandidateCluster, articles: list[Article]) -> ReviewDecision:
     response = _get_client().chat.completions.create(
         model=MODEL,
+        temperature=JUDGEMENT_TEMPERATURE,
         response_format={
             "type": "json_schema",
             "json_schema": {
@@ -354,6 +356,7 @@ def critique_entry(
 ) -> EditorialReview:
     response = _get_client().chat.completions.create(
         model=MODEL,
+        temperature=JUDGEMENT_TEMPERATURE,
         response_format={
             "type": "json_schema",
             "json_schema": {
