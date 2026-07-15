@@ -21,3 +21,10 @@ class ReviewDecision(BaseModel):
     decision: Literal["approve", "reject", "remove_outliers"]
     reason: str
     outlier_article_ids: list[str] = []
+
+
+class ClusterMetrics(BaseModel):
+    cluster_id: str
+    traffic_share: float
+    size_index: float
+    total_pageviews: int
